@@ -34,7 +34,7 @@ const swaggerOptions = {
                 description: 'Test server'
             },
             {
-                url: 'https://task-manager-cse341-fall2025-week05.onrender.com',
+                url: 'https://task-manager-week06.onrender.com',
                 description: 'Production server'
             }
         ]
