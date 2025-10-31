@@ -1,0 +1,164 @@
+### Task Manager API - REST Client Tests
+
+### Variables
+@baseUrl_local = http://localhost:3000
+@baseUrl_render = https://task-manager-cse341-fall2025-week05.onrender.com
+@contentType = application/json
+
+### test local for development
+ @baseUrl = {{baseUrl_local}}
+
+### test production on Render
+# @baseUrl = {{baseUrl_render}}
+
+###############################################
+### ROOT ENDPOINT
+###############################################
+
+### Get API Info
+GET {{baseUrl}}/
+Content-Type: {{contentType}}
+
+###############################################
+### GET REQUESTS
+###############################################
+
+### Get all tasks
+GET {{baseUrl}}/api/tasks
+Content-Type: {{contentType}}
+
+### Get task by ID (replace with valid ID)
+GET {{baseUrl}}/api/tasks/6903fcfd155a968113d9358b
+Content-Type: {{contentType}}
+
+### Test GET with invalid ID format
+GET {{baseUrl}}/api/tasks/invalid-id
+Content-Type: {{contentType}}
+
+###############################################
+### POST REQUESTS
+###############################################
+
+### Create new task
+POST {{baseUrl}}/api/tasks
+Content-Type: {{contentType}}
+
+{
+  "title": "Complete assignment",
+  "description": "Finish the task manager API project",
+  "status": "pending",
+  "dueDate": "2025-11-15"
+}
+
+### Create another task
+POST {{baseUrl}}/api/tasks
+Content-Type: {{contentType}}
+
+{
+  "title": "Study for exam",
+  "description": "Review all course materials",
+  "status": "in-progress",
+  "dueDate": "2025-11-20"
+}
+
+### Test POST with missing required fields
+POST {{baseUrl}}/api/tasks
+Content-Type: {{contentType}}
+
+{
+  "title": "Incomplete task"
+}
+
+### Test POST with invalid status
+POST {{baseUrl}}/api/tasks
+Content-Type: {{contentType}}
+
+{
+  "title": "Invalid status task",
+  "description": "Testing invalid status",
+  "status": "invalid-status",
+  "dueDate": "2025-11-15"
+}
+
+### Test POST with title too long
+POST {{baseUrl}}/api/tasks
+Content-Type: {{contentType}}
+
+{
+  "title": "This is a very long title that exceeds the maximum allowed length of one hundred characters for task titles",
+  "description": "Testing validation",
+  "dueDate": "2025-11-15"
+}
+
+###############################################
+### PUT REQUESTS
+###############################################
+
+### Update task status (replace with valid ID)
+PUT {{baseUrl}}/api/tasks/69014f5bf5735940c26ab621
+Content-Type: {{contentType}}
+
+{
+  "status": "completed"
+}
+
+### Updated task completely (replace with valid ID)
+PUT {{baseUrl}}/api/tasks/507f1f77bcf86cd799439011
+Content-Type: {{contentType}}
+
+{
+  "title": "Complete assignment - UPDATED",
+  "description": "Finish the task manager API project with documentation",
+  "status": "in-progress",
+  "dueDate": "2025-11-16"
+}
+
+### Test PUT with invalid ID format
+PUT {{baseUrl}}/api/tasks/invalid-id
+Content-Type: {{contentType}}
+
+{
+  "status": "completed"
+}
+
+### Test PUT with invalid status
+PUT {{baseUrl}}/api/tasks/507f1f77bcf86cd799439011
+Content-Type: {{contentType}}
+
+{
+  "status": "wrong-status"
+}
+
+### Test PUT with title too long
+PUT {{baseUrl}}/api/tasks/507f1f77bcf86cd799439011
+Content-Type: {{contentType}}
+
+{
+  "title": "This is a very long title that exceeds the maximum allowed length of one hundred characters for task titles"
+}
+
+###############################################
+### DELETE REQUESTS
+###############################################
+
+### Delete task (replace with valid ID)
+DELETE {{baseUrl}}/api/tasks/507f1f77bcf86cd799439011
+Content-Type: {{contentType}}
+
+### Test DELETE with invalid ID format
+DELETE {{baseUrl}}/api/tasks/invalid-id
+Content-Type: {{contentType}}
+
+### Test DELETE with non-existent ID
+DELETE {{baseUrl}}/api/tasks/507f1f77bcf86cd799439099
+Content-Type: {{contentType}}
+
+###############################################
+### TESTING DIFFERENT ENVIRONMENTS
+###############################################
+
+### Test localhost
+GET http://localhost:3000/api/tasks
+
+### Test Render
+GET {{baseUrl}}/api/tasks
